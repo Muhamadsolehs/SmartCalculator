@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#0b0f19">
+  <meta name="description" content="Kalkulator Saintifik Modern Berbasis Python untuk Desktop dan Smartphone">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Kalkulator Saintifik Python</title>
+  
+  <link rel="icon" type="image/svg+xml" href="/icon.svg">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body class="dark-theme">
+  <!-- Background Glow Accents -->
+  <div class="bg-glow bg-glow-1" aria-hidden="true"></div>
+  <div class="bg-glow bg-glow-2" aria-hidden="true"></div>
+
+  <div class="app-wrapper">
+    <!-- Top Navigation Bar -->
+    <header class="app-header">
+      <div class="brand">
+        <div class="brand-icon">
+          <img src="/icon.svg" alt="Logo Kalkulator" width="28" height="28">
+        </div>
+        <div class="brand-text">
+          <span class="brand-title">PyCalc</span>
+          <span class="brand-badge">Scientific Pro</span>
+        </div>
+      </div>
+
+      <nav class="header-actions">
+        <!-- Angle Unit Toggle -->
+        <button id="btnAngleMode" class="badge-btn" type="button" title="Ganti Mode Sudut (DEG/RAD)" aria-label="Ganti mode derajat atau radian">
+          <span id="angleModeText">DEG</span>
+        </button>
+
+        <!-- Sound Toggle -->
+        <button id="btnSoundToggle" class="icon-btn" type="button" title="Efek Suara Tombol" aria-label="Toggle efek suara">
+          <svg id="iconSoundOn" class="svg-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+          </svg>
+          <svg id="iconSoundOff" class="svg-icon hidden" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <line x1="23" y1="9" x2="17" y2="15"></line>
+            <line x1="17" y1="9" x2="23" y2="15"></line>
+          </svg>
+        </button>
+
+        <!-- Mobile Connect / QR -->
+        <button id="btnMobileConnect" class="icon-btn" type="button" title="Hubungkan ke HP (QR Code & IP LAN)" aria-label="Buka di Smartphone">
+          <svg class="svg-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+            <line x1="12" y1="18" x2="12.01" y2="18"></line>
+          </svg>
+        </button>
+
+        <!-- Keyboard Guide (Desktop) -->
+        <button id="btnKeyboardGuide" class="icon-btn desktop-only" type="button" title="Panduan Keyboard Desktop" aria-label="Panduan Tombol Keyboard">
+          <svg class="svg-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="4" width="20" height="16" rx="2" ry="2"></rect>
+            <path d="M6 8h.001M10 8h.001M14 8h.001M18 8h.001M6 12h.001M18 12h.001M8 16h8"></path>
+          </svg>
+        </button>
+
+        <!-- History Drawer Button -->
+        <button id="btnOpenHistory" class="icon-btn" type="button" title="Lihat Riwayat Perhitungan" aria-label="Riwayat hitungan">
+          <svg class="svg-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
+          <span id="historyBadge" class="badge-dot hidden"></span>
+        </button>
+
+        <!-- Theme Toggle -->
+        <button id="btnThemeToggle" class="icon-btn" type="button" title="Ubah Tema Gelap/Terang" aria-label="Ganti tema">
+          <svg id="iconSun" class="svg-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <svg id="iconMoon" class="svg-icon hidden" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+      </nav>
+    </header>
+
+    <!-- Main Content Area: Calculator & Side History (on wide desktop) -->
+    <main class="main-layout">
+      <!-- Calculator Main Box -->
+      <section class="calculator-card" aria-label="Mesin Kalkulator">
+        
+        <!-- Screen / Display Section -->
+        <div class="screen-container">
+          <!-- Status Indicator Bar -->
+          <div class="screen-status-bar">
+            <span class="status-pill angle-pill" id="screenAnglePill">DEG</span>
+            <span class="status-pill mem-pill hidden" id="screenMemPill">MEM</span>
+            <span class="status-pill inv-pill hidden" id="screenInvPill">INV</span>
+            <div class="screen-actions">
+              <button id="btnCopyResult" class="text-action-btn" type="button" title="Salin Hasil Perhitungan">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
+                <span>Salin</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Formula / Expression Line -->
+          <div class="expression-line" id="expressionDisplay" tabindex="0" role="textbox" aria-label="Rumus kalkulasi" aria-readonly="true">
+            <span class="expression-text" id="expressionText"></span>
+            <span class="cursor" id="expressionCursor" aria-hidden="true"></span>
+          </div>
+
+          <!-- Live Result / Output Line -->
+          <div class="result-line">
+            <span class="live-preview" id="livePreview"></span>
+            <div class="main-result" id="resultDisplay" aria-live="polite">0</div>
+          </div>
+        </div>
+
+        <!-- Memory Operations Bar -->
+        <div class="memory-bar" role="toolbar" aria-label="Operasi Memori">
+          <button type="button" class="mem-btn" data-mem="MC" title="Memory Clear">MC</button>
+          <button type="button" class="mem-btn" data-mem="MR" title="Memory Recall">MR</button>
+          <button type="button" class="mem-btn" data-mem="M+" title="Memory Add">M+</button>
+          <button type="button" class="mem-btn" data-mem="M-" title="Memory Subtract">M−</button>
+          <button type="button" class="mem-btn" data-mem="MS" title="Memory Store">MS</button>
+          <button type="button" class="mem-btn backspace-quick" id="btnQuickDel" title="Hapus Karakter Terakhir (Backspace)">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"></path>
+              <line x1="18" y1="9" x2="12" y2="15"></line>
+              <line x1="12" y1="9" x2="18" y2="15"></line>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Mobile Segment Switcher (Hanya tampil di Mobile Portrait) -->
+        <div class="mobile-mode-tabs" role="tablist" aria-label="Pilihan Keypad">
+          <button class="mode-tab active" id="tabBasic" role="tab" aria-selected="true" type="button">
+            <span>Standar</span>
+          </button>
+          <button class="mode-tab" id="tabScientific" role="tab" aria-selected="false" type="button">
+            <span>Saintifik (fx)</span>
+          </button>
+        </div>
+
+        <!-- Keypads Container -->
+        <div class="keypads-wrapper">
+          <!-- Scientific Keypad Panel -->
+          <div class="keypad-grid scientific-grid" id="scientificKeypad" role="group" aria-label="Tombol Saintifik">
+            <!-- Row 1 -->
+            <button type="button" class="key key-fn" data-action="toggle-inv" id="btnInv">
+              <span>2<sup>nd</sup></span>
+            </button>
+            <button type="button" class="key key-fn" data-insert="sin(" id="btnSin">
+              <span class="label-primary">sin</span>
+              <span class="label-inv hidden">sin⁻¹</span>
+            </button>
+            <button type="button" class="key key-fn" data-insert="cos(" id="btnCos">
+              <span class="label-primary">cos</span>
+              <span class="label-inv hidden">cos⁻¹</span>
+            </button>
+            <button type="button" class="key key-fn" data-insert="tan(" id="btnTan">
+              <span class="label-primary">tan</span>
+              <span class="label-inv hidden">tan⁻¹</span>
+            </button>
+
+            <!-- Row 2 -->
+            <button type="button" class="key key-fn" data-insert="ln(" id="btnLn">
+              <span class="label-primary">ln</span>
+              <span class="label-inv hidden">e<sup>x</sup></span>
+            </button>
+            <button type="button" class="key key-fn" data-insert="log(" id="btnLog">
+              <span class="label-primary">log</span>
+              <span class="label-inv hidden">10<sup>x</sup></span>
+            </button>
+            <button type="button" class="key key-fn" data-insert="sqrt(" id="btnSqrt">
+              <span class="label-primary">√x</span>
+              <span class="label-inv hidden">∛x</span>
+            </button>
+            <button type="button" class="key key-fn" data-insert="^" id="btnPow">
+              <span class="label-primary">x<sup>y</sup></span>
+              <span class="label-inv hidden">x²</span>
+            </button>
+
+            <!-- Row 3 -->
+            <button type="button" class="key key-fn" data-action="reciprocal">
+              <span>1/x</span>
+            </button>
+            <button type="button" class="key key-fn" data-insert="abs(">
+              <span>|x|</span>
+            </button>
+            <button type="button" class="key key-fn" data-insert="!">
+              <span>x!</span>
+            </button>
+            <button type="button" class="key key-fn" data-insert="pi">
+              <span>π</span>
+            </button>
+
+            <!-- Row 4 -->
+            <button type="button" class="key key-fn" data-insert="e">
+              <span>e</span>
+            </button>
+            <button type="button" class="key key-fn" data-insert="(">
+              <span>(</span>
+            </button>
+            <button type="button" class="key key-fn" data-insert=")">
+              <span>)</span>
+            </button>
+            <button type="button" class="key key-fn" data-insert=" % ">
+              <span>mod</span>
+            </button>
+          </div>
+
+          <!-- Standard Keypad Panel -->
+          <div class="keypad-grid standard-grid" id="standardKeypad" role="group" aria-label="Tombol Standar">
+            <!-- Row 1 -->
+            <button type="button" class="key key-clear" data-action="clear" id="keyClear">
+              <span>AC</span>
+            </button>
+            <button type="button" class="key key-del" data-action="delete" id="keyDel" title="Backspace">
+              <span>DEL</span>
+            </button>
+            <button type="button" class="key key-op" data-insert="%" id="keyPercent">
+              <span>%</span>
+            </button>
+            <button type="button" class="key key-op key-accent" data-insert=" ÷ " id="keyDivide">
+              <span>÷</span>
+            </button>
+
+            <!-- Row 2 -->
+            <button type="button" class="key key-num" data-insert="7">7</button>
+            <button type="button" class="key key-num" data-insert="8">8</button>
+            <button type="button" class="key key-num" data-insert="9">9</button>
+            <button type="button" class="key key-op key-accent" data-insert=" × " id="keyMultiply">
+              <span>×</span>
+            </button>
+
+            <!-- Row 3 -->
+            <button type="button" class="key key-num" data-insert="4">4</button>
+            <button type="button" class="key key-num" data-insert="5">5</button>
+            <button type="button" class="key key-num" data-insert="6">6</button>
+            <button type="button" class="key key-op key-accent" data-insert=" - " id="keySubtract">
+              <span>−</span>
+            </button>
+
+            <!-- Row 4 -->
+            <button type="button" class="key key-num" data-insert="1">1</button>
+            <button type="button" class="key key-num" data-insert="2">2</button>
+            <button type="button" class="key key-num" data-insert="3">3</button>
+            <button type="button" class="key key-op key-accent" data-insert=" + " id="keyAdd">
+              <span>+</span>
+            </button>
+
+            <!-- Row 5 -->
+            <button type="button" class="key key-num" data-action="negate">
+              <span>±</span>
+            </button>
+            <button type="button" class="key key-num" data-insert="0">0</button>
+            <button type="button" class="key key-num" data-insert=".">.</button>
+            <button type="button" class="key key-equal" data-action="calculate" id="keyEquals">
+              <span>=</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Desktop Side History Panel (Visible on large screens) -->
+      <aside class="desktop-history-panel" aria-label="Riwayat Perhitungan Desktop">
+        <div class="panel-header">
+          <div class="panel-title">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+            <h3>Riwayat</h3>
+          </div>
+          <button type="button" class="text-danger-btn" id="btnClearHistoryDesktop" title="Bersihkan riwayat">
+            <span>Hapus</span>
+          </button>
+        </div>
+        <div class="history-list" id="desktopHistoryList">
+          <div class="history-empty">
+            <p>Belum ada riwayat kalkulasi</p>
+          </div>
+        </div>
+      </aside>
+    </main>
+
+    <!-- Slide-over Drawer for Mobile History -->
+    <div class="drawer-overlay hidden" id="drawerOverlay" aria-hidden="true"></div>
+    <div class="history-drawer" id="historyDrawer" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Riwayat Perhitungan">
+      <div class="drawer-header">
+        <div class="panel-title">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
+          <h3>Riwayat Perhitungan</h3>
+        </div>
+        <div class="drawer-actions">
+          <button type="button" class="text-danger-btn" id="btnClearHistoryMobile">Hapus Semua</button>
+          <button type="button" class="icon-btn close-drawer-btn" id="btnCloseDrawer" aria-label="Tutup riwayat">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+      </div>
+      <div class="history-list drawer-history-list" id="mobileHistoryList">
+        <div class="history-empty">
+          <p>Belum ada riwayat kalkulasi</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Connection Modal (QR Code & IP) -->
+    <div class="modal-backdrop hidden" id="mobileModalBackdrop" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-card">
+        <div class="modal-header">
+          <h3 id="modalTitle">Buka di Smartphone / Mobile</h3>
+          <button type="button" class="icon-btn" id="btnCloseMobileModal" aria-label="Tutup modal">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p class="modal-desc">
+            Akses kalkulator ini di smartphone Anda melalui browser (Chrome, Safari, dsb.) di jaringan Wi-Fi yang sama:
+          </p>
+
+          <!-- QR Code Container -->
+          <div class="qr-container">
+            <div id="qrCodeCanvas" class="qr-box"></div>
+            <span class="qr-caption">Arahkan kamera HP ke QR Code di atas</span>
+          </div>
+
+          <!-- URL Box with Copy Button -->
+          <div class="url-copy-box">
+            <input type="text" id="inputMobileUrl" readonly value="Memuat alamat...">
+            <button type="button" class="btn-copy-url" id="btnCopyMobileUrl">Salin Link</button>
+          </div>
+
+          <div class="connection-tip">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="16" x2="12" y2="12"></line>
+              <line x1="12" y1="8" x2="12.01" y2="8"></line>
+            </svg>
+            <span>Tip: Anda juga dapat memilih <strong>"Tambahkan ke Layar Utama" (Add to Home Screen)</strong> di browser HP untuk menjadikannya aplikasi mandiri (PWA).</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Desktop Keyboard Guide Modal -->
+    <div class="modal-backdrop hidden" id="keyboardModalBackdrop" role="dialog" aria-modal="true" aria-labelledby="kbTitle">
+      <div class="modal-card">
+        <div class="modal-header">
+          <h3 id="kbTitle">Pintasan Keyboard Desktop</h3>
+          <button type="button" class="icon-btn" id="btnCloseKeyboardModal" aria-label="Tutup panduan">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="shortcuts-grid">
+            <div class="sc-item"><kbd>0 - 9</kbd><span>Angka</span></div>
+            <div class="sc-item"><kbd>+ - * /</kbd><span>Operasi aritmatika</span></div>
+            <div class="sc-item"><kbd>Enter</kbd> atau <kbd>=</kbd><span>Hitung hasil</span></div>
+            <div class="sc-item"><kbd>Backspace</kbd><span>Hapus 1 karakter</span></div>
+            <div class="sc-item"><kbd>Esc</kbd> atau <kbd>Delete</kbd><span>Clear All (AC)</span></div>
+            <div class="sc-item"><kbd>(</kbd> <kbd>)</kbd><span>Tanda kurung</span></div>
+            <div class="sc-item"><kbd>^</kbd><span>Pangkat (xʸ)</span></div>
+            <div class="sc-item"><kbd>s</kbd> / <kbd>c</kbd> / <kbd>t</kbd><span>sin / cos / tan</span></div>
+            <div class="sc-item"><kbd>r</kbd><span>Akar kuadrat (√)</span></div>
+            <div class="sc-item"><kbd>p</kbd> / <kbd>e</kbd><span>Konstanta π / e</span></div>
+            <div class="sc-item"><kbd>!</kbd><span>Faktorial</span></div>
+            <div class="sc-item"><kbd>%</kbd><span>Persen</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast Notification for feedback -->
+    <div id="toastNotification" class="toast hidden" role="status" aria-live="polite"></div>
+  </div>
+
+  <script src="/script.js"></script>
+</body>
+</html>

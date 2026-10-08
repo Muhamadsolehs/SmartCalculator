@@ -1,0 +1,19 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+env/
+.env
+
+# Antigravity / IDE artifacts
+.system_generated/
+.idea/
+.vscode/
+
+# OS specific
+Thumbs.db
+Desktop.ini
+.DS_Store

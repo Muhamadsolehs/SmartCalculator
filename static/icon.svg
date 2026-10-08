@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e1b4b"/>
+      <stop offset="50%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#020617"/>
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6366f1"/>
+      <stop offset="100%" stop-color="#3b82f6"/>
+    </linearGradient>
+    <linearGradient id="amberGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#ea580c"/>
+    </linearGradient>
+    <linearGradient id="emeraldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="16" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- Background Card -->
+  <rect x="32" y="32" width="448" height="448" rx="96" fill="url(#bgGrad)" stroke="#334155" stroke-width="6"/>
+
+  <!-- Calculator Screen Frame -->
+  <rect x="80" y="80" width="352" height="110" rx="24" fill="#0f172a" stroke="#1e293b" stroke-width="4"/>
+  <rect x="96" y="96" width="320" height="78" rx="16" fill="#1e293b" fill-opacity="0.8"/>
+  
+  <!-- Screen Text Placeholder / Glow -->
+  <text x="390" y="152" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="44" font-weight="700" fill="#38bdf8" text-anchor="end">3.14159</text>
+
+  <!-- Keypad Buttons -->
+  <!-- Row 1 -->
+  <rect x="80" y="220" width="70" height="50" rx="16" fill="#dc2626" fill-opacity="0.9"/>
+  <text x="115" y="252" font-family="sans-serif" font-size="20" font-weight="700" fill="#ffffff" text-anchor="middle">AC</text>
+
+  <rect x="174" y="220" width="70" height="50" rx="16" fill="#334155"/>
+  <text x="209" y="252" font-family="sans-serif" font-size="22" font-weight="600" fill="#94a3b8" text-anchor="middle">( )</text>
+
+  <rect x="268" y="220" width="70" height="50" rx="16" fill="#334155"/>
+  <text x="303" y="252" font-family="sans-serif" font-size="22" font-weight="600" fill="#94a3b8" text-anchor="middle">%</text>
+
+  <rect x="362" y="220" width="70" height="50" rx="16" fill="url(#accentGrad)"/>
+  <text x="397" y="252" font-family="sans-serif" font-size="26" font-weight="700" fill="#ffffff" text-anchor="middle">÷</text>
+
+  <!-- Row 2 -->
+  <rect x="80" y="286" width="70" height="50" rx="16" fill="#1e293b"/>
+  <text x="115" y="320" font-family="sans-serif" font-size="24" font-weight="600" fill="#f8fafc" text-anchor="middle">7</text>
+
+  <rect x="174" y="286" width="70" height="50" rx="16" fill="#1e293b"/>
+  <text x="209" y="320" font-family="sans-serif" font-size="24" font-weight="600" fill="#f8fafc" text-anchor="middle">8</text>
+
+  <rect x="268" y="286" width="70" height="50" rx="16" fill="#1e293b"/>
+  <text x="303" y="320" font-family="sans-serif" font-size="24" font-weight="600" fill="#f8fafc" text-anchor="middle">9</text>
+
+  <rect x="362" y="286" width="70" height="50" rx="16" fill="url(#accentGrad)"/>
+  <text x="397" y="320" font-family="sans-serif" font-size="26" font-weight="700" fill="#ffffff" text-anchor="middle">×</text>
+
+  <!-- Row 3 -->
+  <rect x="80" y="352" width="70" height="50" rx="16" fill="#1e293b"/>
+  <text x="115" y="386" font-family="sans-serif" font-size="24" font-weight="600" fill="#f8fafc" text-anchor="middle">4</text>
+
+  <rect x="174" y="352" width="70" height="50" rx="16" fill="#1e293b"/>
+  <text x="209" y="386" font-family="sans-serif" font-size="24" font-weight="600" fill="#f8fafc" text-anchor="middle">5</text>
+
+  <rect x="268" y="352" width="70" height="50" rx="16" fill="#1e293b"/>
+  <text x="303" y="386" font-family="sans-serif" font-size="24" font-weight="600" fill="#f8fafc" text-anchor="middle">6</text>
+
+  <rect x="362" y="352" width="70" height="50" rx="16" fill="url(#accentGrad)"/>
+  <text x="397" y="386" font-family="sans-serif" font-size="26" font-weight="700" fill="#ffffff" text-anchor="middle">−</text>
+
+  <!-- Row 4 -->
+  <rect x="80" y="418" width="70" height="50" rx="16" fill="#1e293b"/>
+  <text x="115" y="452" font-family="sans-serif" font-size="24" font-weight="600" fill="#f8fafc" text-anchor="middle">1</text>
+
+  <rect x="174" y="418" width="70" height="50" rx="16" fill="#1e293b"/>
+  <text x="209" y="452" font-family="sans-serif" font-size="24" font-weight="600" fill="#f8fafc" text-anchor="middle">2</text>
+
+  <rect x="268" y="418" width="70" height="50" rx="16" fill="#1e293b"/>
+  <text x="303" y="452" font-family="sans-serif" font-size="24" font-weight="600" fill="#f8fafc" text-anchor="middle">3</text>
+
+  <rect x="362" y="418" width="70" height="50" rx="16" fill="url(#emeraldGrad)" filter="url(#glow)"/>
+  <text x="397" y="452" font-family="sans-serif" font-size="28" font-weight="700" fill="#ffffff" text-anchor="middle">=</text>
+</svg>
